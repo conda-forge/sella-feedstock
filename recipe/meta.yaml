@@ -1,5 +1,5 @@
 {% set name = "sella" %}
-{% set version = "2.1.0" %}
+{% set version = "2.2.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/Sella-{{ version }}.tar.gz
-  sha256: dfe262042c87d90fbb69252e9559f53faa52b0c2f41404cf991910d1429c784d
+  sha256: c6d5718ec6edb7e70850d51896e1bda2c3e7fe3a7017057dd95c7b5d876c17d4
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win]
   script: {{ PYTHON }} -m pip install . -vv
 
