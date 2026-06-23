@@ -1,13 +1,13 @@
 {% set name = "sella" %}
-{% set version = "2.3.1" %}
+{% set version = "2.5.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/Sella-{{ version }}.tar.gz
-  sha256: 339d428dba7a6829c9c0dfcb4eb4acea5f368df68d5858e3184ced5deb86ea84
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: e253991e3893e249fe4e9e9ba4d6e951da6579a7b292b1187185f3d54ad1f9cd
 
 build:
   number: 0
@@ -17,6 +17,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
   host:
     - cython
     - numpy
