@@ -10,43 +10,50 @@ source:
   sha256: 7effc2a10f6d43c0bbdff11acb1fe36e16424cd9f01746660e87985662713384
 
 build:
+  # Sella 2.6.0 dropped its Cython extensions and is pure Python.
   number: 0
-  skip: true  # [win]
-  script: {{ PYTHON }} -m pip install . -vv
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
-  build:
-    - {{ compiler('c') }}
-    - {{ stdlib("c") }}
   host:
-    - cython
-    - numpy
+    - python {{ python_min }}
     - pip
-    - python
+    - setuptools >=74.1,<82
+    - setuptools-scm >=8
   run:
-    - ase >=3.18.0
-    - jax >=0.2.3
-    - jaxlib >=0.1.56
-    - {{ pin_compatible('numpy') }}
-    - python
+    - python >={{ python_min }}
+    - numpy >=1.14.0
     - scipy >=1.1.0
+    - ase >=3.26.0
+    - jax >=0.4.20
+    - jaxlib >=0.4.20
 
 test:
   imports:
     - sella
+    - sella.optimize
+    - sella.internal
   commands:
-    - python -m pip check
+    - pip check
   requires:
+    - python {{ python_min }}
     - pip
 
 about:
-  home: https://pypi.org/project/Sella/
+  home: https://github.com/zadorlab/sella
   doc_url: https://github.com/zadorlab/sella/wiki
-  summary: |
-    Sella is a utility for finding first order saddle points
+  dev_url: https://github.com/zadorlab/sella
+  summary: Saddle point optimization for molecular systems
+  description: |
+    Sella is a utility for finding first-order saddle points (transition
+    states) and minima on potential energy surfaces, built on ASE. It
+    supports Cartesian and internal coordinates, constraints, IRC
+    following, and cell optimization.
   license: LGPL-3.0-only
   license_file: LICENSE
 
 extra:
   recipe-maintainers:
+    - juditzador
     - awvwgk
